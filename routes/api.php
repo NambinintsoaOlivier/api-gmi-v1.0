@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\MarqueController;
+use App\Http\Controllers\TypesMaterielController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +22,5 @@ Route::middleware('auth:api')->group(function () {
 
     // Routes des ressources protégées
     Route::apiResource('/marques', MarqueController::class);
+    Route::apiResource('/types-materiels', TypesMaterielController::class);
 });
