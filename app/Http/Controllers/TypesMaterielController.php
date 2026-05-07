@@ -29,7 +29,7 @@ class TypesMaterielController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom_type' => 'required|string|max:100|unique:types_materiel,nom_type',
+            'nom_type' => 'required|string|max:100|unique:types_materiels,nom_type',
         ]);
 
         $types_materiel = Types_materiel::create($request->only('nom_type'));
