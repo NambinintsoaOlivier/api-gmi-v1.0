@@ -5,6 +5,7 @@ use App\Http\Controllers\CategorieMaterielController;
 use App\Http\Controllers\MarqueController;
 use App\Http\Controllers\MaterielController;
 use App\Http\Controllers\TypesMaterielController;
+use App\Http\Controllers\UtilisateurController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,4 +28,5 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('/categories', CategorieMaterielController::class);
     Route::apiResource('/types-materiels', TypesMaterielController::class);
     Route::apiResource('/materiels', MaterielController::class);
+    Route::apiResource('/utilisateurs', UtilisateurController::class);
 });

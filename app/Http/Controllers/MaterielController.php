@@ -11,9 +11,31 @@ class MaterielController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Materiel::with(['categorieMateriel', 'marque', 'typesMateriel'])->paginate(15));
+        // return response()->json(Materiel::with(['categorieMateriel', 'marque', 'typesMateriel'])->paginate(2));
+
+        $query = Materiel::with(['typesMateriel', 'marque', 'categorieMateriel']);
+
+        // Recherche instantanée
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+
+            // Version optimisée avec whereLike (Laravel 11+)
+            $query->where(function ($q) use ($search) {
+                $q->where('modele', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('etat', 'like', "%{$search}%")
+                    ->orWhereHas('marque', fn($q) => $q->where('nom_marque', 'like', "%{$search}%"))
+                    ->orWhereHas('typesMateriel', fn($q) => $q->where('nom_type', 'like', "%{$search}%"))
+                    ->orWhereHas('categorieMateriel', fn($q) => $q->where('nom_categorie', 'like', "%{$search}%"));
+            });
+        }
+
+        // Pagination (10 par page)
+        $materiels = $query->orderBy('id', 'desc')->paginate(7);
+
+        return response()->json($materiels);
     }
 
 
