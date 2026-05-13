@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AffectationController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CategorieMaterielController;
 use App\Http\Controllers\MarqueController;
@@ -29,4 +30,6 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('/types-materiels', TypesMaterielController::class);
     Route::apiResource('/materiels', MaterielController::class);
     Route::apiResource('/utilisateurs', UtilisateurController::class);
+    Route::apiResource('/affectations', AffectationController::class);
+    Route::get('/affectation', [AffectationController::class, 'getAffectations']);
 });
